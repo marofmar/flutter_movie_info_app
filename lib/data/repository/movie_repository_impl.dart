@@ -1,24 +1,40 @@
-import 'package:movie_info_app/data/data_source/movie_data_source.dart';
-import 'package:movie_info_app/domain/entity/movie.dart';
+import 'package:movie_info_app/data/data_source/movie_remote_data_source.dart';
+import 'package:movie_info_app/data/dto/movie_response_model.dart';
+import 'package:movie_info_app/domain/entity/movie_detail_entity.dart';
+import 'package:movie_info_app/domain/entity/movie_entity.dart';
 import 'package:movie_info_app/domain/repository/movie_repository.dart';
 
 class MovieRepositoryImpl implements MovieRepository {
-  MovieRepositoryImpl(this._movieDataSource);
+  final MovieRemoteDataSource _movieRemoteDataSource;
 
-  final MovieDataSource _movieDataSource;
+  MovieRepositoryImpl(this._movieRemoteDataSource);
+  @override
+  Future<List<MovieEntity>> getPlayingNow() async {
+    final movies = await _movieRemoteDataSource.getPlayingNow();
+    return movies.map((movie) => movie.toEntity()).toList();
+  }
+
+  // @override
+  // Future<MovieDetailEntity> getMovieDetail(int movieId) async {
+  //   final movie = await _movieRemoteDataSource.getMovieDetail(movieId);
+  //   return movie.toDetailEntity();
+  // }
 
   @override
-  Future<List<Movie>> fetchMovies() async {
-    final result =
-        await _movieDataSource.fetchMovies(); // 현재 result type: MovideDto
-    return result
-        .map((e) => Movie(
-            title: e.title,
-            released: e.released,
-            runtime: e.runtime,
-            director: e.director,
-            actors: e.actors,
-            poster: e.poster))
-        .toList();
+  Future<List<MovieEntity>> getPopular() async {
+    final movies = await _movieRemoteDataSource.getPopular();
+    return movies.map((movie) => movie.toEntity()).toList();
+  }
+
+  @override
+  Future<List<MovieEntity>> getTopRated() async {
+    final movies = await _movieRemoteDataSource.getTopRated();
+    return movies.map((movie) => movie.toEntity()).toList();
+  }
+
+  @override
+  Future<List<MovieEntity>> getUpcoming() async {
+    final movies = await _movieRemoteDataSource.getUpcoming();
+    return movies.map((movie) => movie.toEntity()).toList();
   }
 }
