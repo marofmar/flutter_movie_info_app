@@ -43,22 +43,27 @@ class HomePage extends ConsumerWidget {
         final mostPopular = state.popularMovies.first;
 
         return Scaffold(
-          // appBar: AppBar(actions: [
-          //   IconButton(
-          //     icon: Icon(
-          //       themeMode == ThemeMode.dark
-          //           ? Icons.light_mode
-          //           : Icons.dark_mode,
-          //     ),
-          //     onPressed: () {
-          //       return themeNotifier.toggleTheme();
-          //     },
-          //   )
-          // ]),
+          appBar: AppBar(
+              toolbarHeight: 46,
+              title: Text(
+                "Movie Info App",
+                style: GoogleFonts.kodeMono(textStyle: TextStyle(fontSize: 16)),
+              ),
+              actions: [
+                IconButton(
+                  icon: Icon(
+                    themeMode == ThemeMode.dark
+                        ? Icons.light_mode
+                        : Icons.dark_mode,
+                  ),
+                  onPressed: () {
+                    return themeNotifier.toggleTheme();
+                  },
+                )
+              ]),
           body: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: 60),
                 const SectionTitle(title: 'Most Popular'),
                 TopMoviePoster(movie: mostPopular),
                 // 현재 상영 중

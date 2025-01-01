@@ -71,7 +71,10 @@ class MovieDetailModel {
     homepage = json['homepage'];
     id = json['id'];
     imdbId = json['imdb_id'];
-    originCountry = json['origin_country'].cast<String>();
+    originCountry = (json['origin_country'] as List<dynamic>?)
+            ?.cast<String>() // null이 아닌 경우에만 cast 호출
+        ??
+        []; // null이면 빈 리스트로 초기화
     originalLanguage = json['original_language'];
     originalTitle = json['original_title'];
     overview = json['overview'];
