@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_info_app/presentation/pages/home/movie_list_page.dart';
 
 void main() async {
-  await dotenv.load(fileName: ".env");
+  await dotenv.load(fileName: "/Users/yujinchung/Projects/movie_info_app/.env");
   runApp(const ProviderScope(child: MyApp()));
 }
 

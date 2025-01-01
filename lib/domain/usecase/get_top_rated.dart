@@ -6,7 +6,6 @@ class GetTopRated {
 
   GetTopRated(this._movieRepository);
 
-  @override
   Future<List<MovieEntity>> call() async {
     return await _movieRepository.getTopRated();
   }

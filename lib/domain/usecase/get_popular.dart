@@ -6,7 +6,6 @@ class GetPopular {
 
   GetPopular(this._movieRepository);
 
-  @override
   Future<List<MovieEntity>> call() async {
     return await _movieRepository.getPopular();
   }

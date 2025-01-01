@@ -10,6 +10,9 @@ import 'package:movie_info_app/data/data_source/movie_remote_data_source_impl.da
 import 'package:movie_info_app/data/repository/movie_repository_impl.dart';
 import 'package:movie_info_app/domain/repository/movie_repository.dart';
 import 'package:movie_info_app/domain/usecase/get_playing_now.dart';
+import 'package:movie_info_app/domain/usecase/get_popular.dart';
+import 'package:movie_info_app/domain/usecase/get_top_rated.dart';
+import 'package:movie_info_app/domain/usecase/get_upcoming.dart';
 
 final apiClientProvider = Provider<ApiClient>((ref) {
   return ApiClient(Client());
@@ -27,9 +30,18 @@ final movieRepositoryProvider = Provider<MovieRepository>(
   },
 );
 
-final getPlayingNowUsecaseProvider = Provider<GetPlayingNow>(
-  (ref) {
-    final movieRepo = ref.watch(movieRepositoryProvider);
-    return GetPlayingNow(movieRepo);
-  },
-);
+final getPlayingNowUsecaseProvider = Provider<GetPlayingNow>((ref) {
+  return GetPlayingNow(ref.read(movieRepositoryProvider));
+});
+
+final getPopularUsecaseProvider = Provider<GetPopular>((ref) {
+  return GetPopular(ref.read(movieRepositoryProvider));
+});
+
+final getTopRatedUsecaseProvider = Provider<GetTopRated>((ref) {
+  return GetTopRated(ref.read(movieRepositoryProvider));
+});
+
+final getUpcomingUsecaseProvider = Provider<GetUpcoming>((ref) {
+  return GetUpcoming(ref.read(movieRepositoryProvider));
+});

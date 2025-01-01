@@ -6,7 +6,6 @@ class GetPlayingNow {
 
   GetPlayingNow(this._movieRepository);
 
-  @override
   Future<List<MovieEntity>> call() async {
     return await _movieRepository.getPlayingNow();
   }

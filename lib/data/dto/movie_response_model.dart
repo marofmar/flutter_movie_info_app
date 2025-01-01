@@ -86,8 +86,8 @@ class MovieResponseModel {
 
   MovieEntity toEntity() {
     return MovieEntity(
-      id: id ?? 0,
-      title: title ?? '',
+      id: id,
+      title: title,
       posterPath: posterPath ?? '',
     );
   }

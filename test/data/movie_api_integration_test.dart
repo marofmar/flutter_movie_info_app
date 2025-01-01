@@ -18,14 +18,48 @@ void main() async {
 
   group('Integration test', () {
     test('getPlayingNow fetches movies successfully', () async {
-      final result = await apiClient.get('/movie/now_playing');
+      final result =
+          await dataSource.getPlayingNow(); // List<MovieResponseModel>
       expect(result, isNotNull);
-      expect(result, isA<Map<String, dynamic>>());
+      expect(result, isA<List<MovieResponseModel>>());
+      expect(result.length, greaterThan(0));
 
-      final moviesResult = MoviesResultModel.fromJson(result);
-      expect(moviesResult.movies, isNotNull);
-      expect(moviesResult.movies, isA<List<MovieResponseModel>>());
-      expect(moviesResult.movies!.length, greaterThan(0));
+      final first = result.first;
+      print('First Now playing: ${first.title}');
+      expect(first.title, isNotEmpty);
+    });
+
+    test('getPopular fetches movies successfully', () async {
+      final result = await dataSource.getPopular();
+      expect(result, isNotNull);
+      expect(result, isA<List<MovieResponseModel>>());
+      expect(result.length, greaterThan(0));
+
+      final first = result.first;
+      print('First popular: ${first.title}');
+      expect(first.title, isNotEmpty);
+    });
+
+    test('getPopular fetches movies successfully', () async {
+      final result = await dataSource.getTopRated();
+      expect(result, isNotNull);
+      expect(result, isA<List<MovieResponseModel>>());
+      expect(result.length, greaterThan(0));
+
+      final first = result.first;
+      print('First top rated: ${first.title}');
+      expect(first.title, isNotEmpty);
+    });
+
+    test('getPopular fetches movies successfully', () async {
+      final result = await dataSource.getUpcoming();
+      expect(result, isNotNull);
+      expect(result, isA<List<MovieResponseModel>>());
+      expect(result.length, greaterThan(0));
+
+      final first = result.first;
+      print('First Upcoming: ${first.title}');
+      expect(first.title, isNotEmpty);
     });
   });
 }

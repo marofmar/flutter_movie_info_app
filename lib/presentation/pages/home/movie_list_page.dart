@@ -26,7 +26,7 @@ class HomePage extends ConsumerWidget {
         );
 
       case MovieListStatus.loaded:
-        final movies = state.movies;
+        final movies = state.playingNowMovies;
         return Scaffold(
             appBar: AppBar(title: Text('영화 목록')),
             body: ListView.builder(
