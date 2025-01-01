@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:movie_info_app/data/core/api_client.dart';
 import 'package:movie_info_app/data/data_source/movie_remote_data_source_impl.dart';
+import 'package:movie_info_app/data/dto/movie_detail_model.dart';
 import 'package:movie_info_app/data/dto/movie_response_model.dart';
 
 class MockApiClient extends Mock implements ApiClient {}
@@ -85,9 +86,19 @@ void main() {
       verify(() => mockApiClient.get('/movie/upcoming')).called(1);
     });
 
-    test('getMovieDetail throws UnimplementedError', () {
-      // Act & Assert
-      expect(() => dataSource.getMovieDetail(1), throwsUnimplementedError);
+    test('getMovieDetail throws UnimplementedError', () async {
+      const movieId = 123;
+      when(() => mockApiClient.get('/movie/${movieId}'))
+          .thenAnswer((_) async => tMovieResponse);
+
+      // Act
+      final result = await dataSource.getMovieDetail(movieId);
+
+      // Assert
+      expect(result, isA<MovieDetailModel>());
+      expect(result, isNotEmpty);
+      expect(result.id, movieId);
+      verify(() => mockApiClient.get('/movie/${movieId}')).called(1);
     });
   });
 }

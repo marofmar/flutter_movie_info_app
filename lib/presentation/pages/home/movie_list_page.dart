@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_info_app/data/core/api_constants.dart';
 import 'package:movie_info_app/domain/entity/movie_entity.dart';
+import 'package:movie_info_app/presentation/pages/detail/movie_detail_page.dart';
 import 'package:movie_info_app/presentation/pages/home/movie_list_view_model.dart';
 import 'package:movie_info_app/presentation/widgets/theme_notifier.dart';
 
@@ -147,17 +148,26 @@ class Carousel extends StatelessWidget {
         itemBuilder: (context, index) {
           final movie = movies[index];
 
-          return Padding(
-            padding: EdgeInsets.only(
-                left: index == 0 ? 20 : 5,
-                right: index == movies.length - 1 ? 20 : 5),
-            child: AspectRatio(
-              aspectRatio: 2 / 3,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Image.network(
-                    '${ApiConstants.baseImageUrl}${movie.posterPath}',
-                    fit: BoxFit.cover),
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => MovieDetailPage(movieId: movie.id)),
+              );
+            },
+            child: Padding(
+              padding: EdgeInsets.only(
+                  left: index == 0 ? 20 : 5,
+                  right: index == movies.length - 1 ? 20 : 5),
+              child: AspectRatio(
+                aspectRatio: 2 / 3,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.network(
+                      '${ApiConstants.baseImageUrl}${movie.posterPath}',
+                      fit: BoxFit.cover),
+                ),
               ),
             ),
           );

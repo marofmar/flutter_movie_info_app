@@ -9,6 +9,7 @@ import 'package:movie_info_app/data/data_source/movie_remote_data_source.dart';
 import 'package:movie_info_app/data/data_source/movie_remote_data_source_impl.dart';
 import 'package:movie_info_app/data/repository/movie_repository_impl.dart';
 import 'package:movie_info_app/domain/repository/movie_repository.dart';
+import 'package:movie_info_app/domain/usecase/get_movie_detail.dart';
 import 'package:movie_info_app/domain/usecase/get_playing_now.dart';
 import 'package:movie_info_app/domain/usecase/get_popular.dart';
 import 'package:movie_info_app/domain/usecase/get_top_rated.dart';
@@ -44,4 +45,8 @@ final getTopRatedUsecaseProvider = Provider<GetTopRated>((ref) {
 
 final getUpcomingUsecaseProvider = Provider<GetUpcoming>((ref) {
   return GetUpcoming(ref.read(movieRepositoryProvider));
+});
+
+final getMovieDetailUsecaseProvider = Provider<GetMovieDetail>((ref) {
+  return GetMovieDetail(ref.read(movieRepositoryProvider));
 });
