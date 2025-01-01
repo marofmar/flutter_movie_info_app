@@ -78,7 +78,7 @@ class MovieListNotifier extends StateNotifier<MovieListState> {
   Future<void> fetchPopular() async {
     state = state.copyWith(status: MovieListStatus.loading); // 로딩 상태
     try {
-      final result = await _getPlayingNow();
+      final result = await _getPopular();
       state =
           state.copyWith(status: MovieListStatus.loaded, popularMovies: result);
     } catch (e) {
@@ -92,7 +92,7 @@ class MovieListNotifier extends StateNotifier<MovieListState> {
   Future<void> fetchTopRated() async {
     state = state.copyWith(status: MovieListStatus.loading); // 로딩 상태
     try {
-      final result = await _getPlayingNow();
+      final result = await _getTopRated();
       state = state.copyWith(
           status: MovieListStatus.loaded, topRatedMovies: result);
     } catch (e) {
@@ -106,7 +106,7 @@ class MovieListNotifier extends StateNotifier<MovieListState> {
   Future<void> fetchUpcoming() async {
     state = state.copyWith(status: MovieListStatus.loading); // 로딩 상태
     try {
-      final result = await _getPlayingNow();
+      final result = await _getUpcoming();
       state = state.copyWith(
           status: MovieListStatus.loaded, upcomingMovies: result);
     } catch (e) {
