@@ -9,10 +9,11 @@ class MoviesResultModel {
 
   MoviesResultModel.fromJson(Map<String, dynamic> json) {
     if (json['results'] != null) {
-      movies = <MovieResponseModel>[];
-      json['results'].forEach((v) {
-        movies!.add(MovieResponseModel.fromJson(v));
-      });
+      movies = (json['results'] as List<dynamic>)
+          .map((v) => MovieResponseModel.fromJson(v as Map<String, dynamic>))
+          .toList();
+    } else {
+      movies = []; // initialize with empty list if results are null
     }
   }
 

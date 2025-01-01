@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_info_app/data/core/api_constants.dart';
 import 'package:movie_info_app/presentation/pages/home/movie_list_view_model.dart';
 
 class HomePage extends ConsumerWidget {
@@ -21,7 +22,7 @@ class HomePage extends ConsumerWidget {
       case MovieListStatus.error:
         return Scaffold(
           appBar: AppBar(title: Text('영화 목록')),
-          body: Center(child: Text('문제가 발생했어요🌱 ${state.errorMessage}')),
+          body: Center(child: Text('문제가 발생했습니다🌱 ${state.errorMessage}')),
         );
 
       case MovieListStatus.loaded:
@@ -40,8 +41,10 @@ class HomePage extends ConsumerWidget {
                     children: [
                       AspectRatio(
                         aspectRatio: 2 / 3,
-                        child:
-                            Image.network(movie.posterPath, fit: BoxFit.cover),
+                        child: Image.network(
+                          '${ApiConstants.baseImageUrl}${movie.posterPath}',
+                          fit: BoxFit.cover,
+                        ),
                       ),
                       const SizedBox(width: 10),
                       Expanded(

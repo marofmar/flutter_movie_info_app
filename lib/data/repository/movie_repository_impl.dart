@@ -1,6 +1,4 @@
 import 'package:movie_info_app/data/data_source/movie_remote_data_source.dart';
-import 'package:movie_info_app/data/dto/movie_response_model.dart';
-import 'package:movie_info_app/domain/entity/movie_detail_entity.dart';
 import 'package:movie_info_app/domain/entity/movie_entity.dart';
 import 'package:movie_info_app/domain/repository/movie_repository.dart';
 

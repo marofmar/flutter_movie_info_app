@@ -1,4 +1,3 @@
-import 'package:movie_info_app/domain/entity/movie_detail_entity.dart';
 import 'package:movie_info_app/domain/entity/movie_entity.dart';
 
 abstract interface class MovieRepository {
