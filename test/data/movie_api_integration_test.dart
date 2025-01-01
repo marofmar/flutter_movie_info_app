@@ -1,3 +1,4 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
 import 'package:movie_info_app/data/core/api_client.dart';
@@ -5,7 +6,8 @@ import 'package:movie_info_app/data/data_source/movie_remote_data_source_impl.da
 import 'package:movie_info_app/data/dto/movie_response_model.dart';
 import 'package:movie_info_app/data/dto/movies_result_model.dart';
 
-void main() {
+void main() async {
+  await dotenv.load(fileName: "/Users/yujinchung/Projects/movie_info_app/.env");
   late ApiClient apiClient;
   late MovieRemoteDataSourceImpl dataSource;
 
