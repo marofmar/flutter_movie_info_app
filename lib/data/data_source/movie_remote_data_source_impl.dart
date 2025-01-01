@@ -41,8 +41,8 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
   }
 
   @override
-  Future<MovieDetailModel> getMovieDetail(int movieId) {
-    // TODO: implement getMovieDetail
-    throw UnimplementedError();
+  Future<MovieDetailModel> getMovieDetail(int movieId) async {
+    final response = await _client.get("/movie/$movieId");
+    return MovieDetailModel.fromJson(response);
   }
 }

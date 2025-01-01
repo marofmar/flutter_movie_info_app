@@ -4,7 +4,6 @@ import 'package:http/http.dart';
 import 'package:movie_info_app/data/core/api_client.dart';
 import 'package:movie_info_app/data/data_source/movie_remote_data_source_impl.dart';
 import 'package:movie_info_app/data/dto/movie_response_model.dart';
-import 'package:movie_info_app/data/dto/movies_result_model.dart';
 
 void main() async {
   await dotenv.load(fileName: "/Users/yujinchung/Projects/movie_info_app/.env");
@@ -60,6 +59,15 @@ void main() async {
       final first = result.first;
       print('First Upcoming: ${first.title}');
       expect(first.title, isNotEmpty);
+    });
+
+    test('getMovieDetail fetches movies details successfully', () async {
+      final movieId = 123; // the lord of the rings
+      final result = await dataSource.getMovieDetail(movieId);
+
+      print('movie detail title: ${result.title}');
+      expect(result.title, isNotEmpty);
+      expect(result.overview, isNotEmpty);
     });
   });
 }
