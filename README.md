@@ -138,7 +138,6 @@ TMDB_API_KEY=1234
 TMDB_READ_ACCESS_TOKEN=1234
 ```
 
-`API_KEY=your_tmdb_api_key_here`
 
 3. 애플리케이션 실행
 
