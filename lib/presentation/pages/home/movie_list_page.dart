@@ -55,7 +55,7 @@ class HomePage extends ConsumerWidget {
                 Carousel(movies: state.playingNowMovies),
                 // 인기 순
                 const SectionTitle(title: 'Popular'),
-                Carousel(movies: state.popularMovies),
+                CarouselRank(movies: state.popularMovies),
                 // 평점 높은 순
                 const SectionTitle(title: 'Top Rated'),
                 Carousel(movies: state.topRatedMovies),
@@ -169,6 +169,81 @@ class Carousel extends StatelessWidget {
                         fit: BoxFit.cover),
                   ),
                 ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class CarouselRank extends StatelessWidget {
+  const CarouselRank({
+    super.key,
+    required this.movies,
+  });
+
+  final List<MovieEntity> movies;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 180,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: movies.length,
+        itemBuilder: (context, index) {
+          final movie = movies[index];
+
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => MovieDetailPage(movieId: movie.id)),
+              );
+            },
+            child: Padding(
+              padding: EdgeInsets.only(
+                  left: index == 0 ? 20 : 5,
+                  right: index == movies.length - 1 ? 20 : 5),
+              child: AspectRatio(
+                aspectRatio: 2 / 3,
+                child: Stack(children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Hero(
+                      tag: '${movie.id}',
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.network(
+                              '${ApiConstants.baseImageUrl}${movie.posterPath}',
+                              fit: BoxFit.cover),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                      bottom: -20,
+                      left: -9,
+                      child: Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: BoxDecoration(),
+                        child: Text(
+                          '${index + 1}',
+                          style: TextStyle(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.light
+                                  ? Colors.white
+                                  : Colors.pinkAccent,
+                              fontSize: 68,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ))
+                ]),
               ),
             ),
           );
