@@ -18,6 +18,7 @@ void main() {
 
   const int tMovieId = 123;
   final tMovieDetailEntity = MovieDetailEntity(
+    posterPath: '',
     budget: 1000000,
     genres: ['Action', 'Drama'],
     id: tMovieId,
