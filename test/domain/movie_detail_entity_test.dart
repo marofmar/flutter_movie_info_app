@@ -21,6 +21,7 @@ void main() {
 
       // Act
       final movieDetailEntity = MovieDetailEntity(
+        posterPath: '',
         budget: budget,
         genres: genres,
         id: id,
@@ -70,6 +71,7 @@ void main() {
 
       // Act
       final movieDetailEntity = MovieDetailEntity(
+        posterPath: '',
         budget: budget,
         genres: genres,
         id: id,
