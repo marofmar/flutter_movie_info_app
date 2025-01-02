@@ -128,7 +128,15 @@ lib/
 
 2. .env 파일 생성
 
-.env 파일에 TMDB API 키를 추가합니다:
+루트 디렉토리 위치에 .env 파일을 만들고, TMDB API 키를 추가합니다:
+
+> .env.template 파일을 참조하세요. 아래와 같은 형식입니다.
+
+```
+# themoviedb.org에서 발급받은 api 키 정보를 입력하여 사용하세요.
+TMDB_API_KEY=1234
+TMDB_READ_ACCESS_TOKEN=1234
+```
 
 `API_KEY=your_tmdb_api_key_here`
 
