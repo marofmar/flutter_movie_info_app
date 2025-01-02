@@ -47,7 +47,8 @@ class MovieDetailNotifier extends StateNotifier<MovieDetailState> {
 }
 
 final movieDetailViewModelProvider =
-    StateNotifierProvider<MovieDetailNotifier, MovieDetailState>((ref) {
+    StateNotifierProvider.family<MovieDetailNotifier, MovieDetailState, int>(
+        (ref, movieId) {
   final getMovieDetail = ref.read(getMovieDetailUsecaseProvider);
-  return MovieDetailNotifier(getMovieDetail);
+  return MovieDetailNotifier(getMovieDetail)..fetchMovieDetail(movieId);
 });

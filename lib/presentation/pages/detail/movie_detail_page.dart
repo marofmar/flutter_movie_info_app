@@ -12,15 +12,15 @@ class MovieDetailPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // 상태 구독
-    final state = ref.watch(movieDetailViewModelProvider);
+    final state = ref.watch(movieDetailViewModelProvider(movieId));
     // 데이터 로드
-    if (state.status == MovieDetailStatus.initial) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        ref
-            .read(movieDetailViewModelProvider.notifier)
-            .fetchMovieDetail(movieId);
-      });
-    }
+    // if (state.status == MovieDetailStatus.initial) {
+    //   WidgetsBinding.instance.addPostFrameCallback((_) {
+    //     ref
+    //         .read(movieDetailViewModelProvider.notifier)
+    //         .fetchMovieDetail(movieId);
+    //   });
+    // }
 
     return Scaffold(
         appBar: const CommonAppBar(title: "Movie Details"),
