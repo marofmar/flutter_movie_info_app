@@ -49,19 +49,34 @@ class HomePage extends ConsumerWidget {
             child: Column(
               children: [
                 const SectionTitle(title: 'Most Popular'),
-                TopMoviePoster(movie: mostPopular),
+                TopMoviePoster(
+                  movie: mostPopular,
+                  sectionName: "mostPopular",
+                ),
                 // 현재 상영 중
                 const SectionTitle(title: 'Now Playing'),
-                Carousel(movies: state.playingNowMovies),
+                Carousel(
+                  movies: state.playingNowMovies,
+                  sectionName: "nowPlaying",
+                ),
                 // 인기 순
                 const SectionTitle(title: 'Popular'),
-                CarouselRank(movies: state.popularMovies),
+                CarouselRank(
+                  movies: state.popularMovies,
+                  sectionName: "popular",
+                ),
                 // 평점 높은 순
                 const SectionTitle(title: 'Top Rated'),
-                Carousel(movies: state.topRatedMovies),
+                Carousel(
+                  movies: state.topRatedMovies,
+                  sectionName: "topRated",
+                ),
                 // 개봉 예정
                 const SectionTitle(title: 'Coming soon'),
-                Carousel(movies: state.upcomingMovies),
+                Carousel(
+                  movies: state.upcomingMovies,
+                  sectionName: "comingSoon",
+                ),
               ],
             ),
           ),
@@ -73,8 +88,10 @@ class HomePage extends ConsumerWidget {
 // 큰 포스터 위젯
 class TopMoviePoster extends StatelessWidget {
   final MovieEntity movie;
+  final String sectionName;
 
-  const TopMoviePoster({required this.movie, super.key});
+  const TopMoviePoster(
+      {required this.movie, required this.sectionName, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +106,10 @@ class TopMoviePoster extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => MovieDetailPage(movieId: movie.id)),
+                    builder: (context) => MovieDetailPage(
+                          movieId: movie.id,
+                          sectionName: "popular",
+                        )),
               );
             },
             child: Image.network(
@@ -132,9 +152,11 @@ class Carousel extends StatelessWidget {
   const Carousel({
     super.key,
     required this.movies,
+    required this.sectionName,
   });
 
   final List<MovieEntity> movies;
+  final String sectionName;
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +173,8 @@ class Carousel extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => MovieDetailPage(movieId: movie.id)),
+                    builder: (context) => MovieDetailPage(
+                        movieId: movie.id, sectionName: sectionName)),
               );
             },
             child: Padding(
@@ -163,7 +186,7 @@ class Carousel extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Hero(
-                    tag: '${movie.id}',
+                    tag: '${sectionName}_${movie.id}',
                     child: Image.network(
                         '${ApiConstants.baseImageUrl}${movie.posterPath}',
                         fit: BoxFit.cover),
@@ -182,9 +205,11 @@ class CarouselRank extends StatelessWidget {
   const CarouselRank({
     super.key,
     required this.movies,
+    required this.sectionName,
   });
 
   final List<MovieEntity> movies;
+  final String sectionName;
 
   @override
   Widget build(BuildContext context) {
@@ -201,7 +226,10 @@ class CarouselRank extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => MovieDetailPage(movieId: movie.id)),
+                    builder: (context) => MovieDetailPage(
+                          movieId: movie.id,
+                          sectionName: sectionName,
+                        )),
               );
             },
             child: Padding(
@@ -213,12 +241,12 @@ class CarouselRank extends StatelessWidget {
                 child: Stack(children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: Hero(
-                      tag: '${movie.id}',
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Hero(
+                          tag: "${sectionName}_${movie.id}",
                           child: Image.network(
                               '${ApiConstants.baseImageUrl}${movie.posterPath}',
                               fit: BoxFit.cover),

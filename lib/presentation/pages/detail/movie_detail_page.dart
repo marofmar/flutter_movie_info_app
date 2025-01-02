@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_info_app/data/core/api_constants.dart';
 import 'package:movie_info_app/presentation/pages/detail/movie_detail_view_model.dart';
+import 'package:movie_info_app/presentation/pages/home/movie_list_page.dart';
 import 'package:movie_info_app/presentation/widgets/common_app_bar.dart';
 
 class MovieDetailPage extends ConsumerWidget {
   final int movieId;
+  final String sectionName;
 
-  const MovieDetailPage({required this.movieId, super.key});
+  const MovieDetailPage(
+      {required this.movieId, required this.sectionName, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -43,7 +46,7 @@ class MovieDetailPage extends ConsumerWidget {
                   Container(
                       width: double.infinity,
                       child: Hero(
-                        tag: "${movie.id}",
+                        tag: "${sectionName}_${movie.id}",
                         child: Image.network(
                           '${ApiConstants.baseImageUrl}${movie.posterPath}',
                           fit: BoxFit.cover,
