@@ -105,12 +105,10 @@ void main() {
 
       // Act
       final result = await dataSource.getMovieDetail(movieId);
-      print(result);
+      print(result); // Instance of movie detail model
       // Assert
       expect(result, isA<MovieDetailModel>());
-      // // expect(result, isNotEmpty);
-      // expect(result.id, movieId);
-      // expect(result.title, "The Lord of the Rings");
+
       verify(() => mockApiClient.get('/movie/${movieId}')).called(1);
     });
   });

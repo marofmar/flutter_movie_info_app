@@ -4,7 +4,7 @@ import 'package:movie_info_app/domain/entity/movie_detail_entity.dart';
 class MovieDetailModel {
   bool? adult;
   String? backdropPath;
-  Null belongsToCollection;
+  Map<String, dynamic>? belongsToCollection;
   int? budget;
   List<Genres>? genres;
   String? homepage;
@@ -72,9 +72,9 @@ class MovieDetailModel {
     id = json['id'];
     imdbId = json['imdb_id'];
     originCountry = (json['origin_country'] as List<dynamic>?)
-            ?.cast<String>() // null이 아닌 경우에만 cast 호출
-        ??
-        []; // null이면 빈 리스트로 초기화
+            ?.map((e) => e.toString())
+            .toList() ??
+        [];
     originalLanguage = json['original_language'];
     originalTitle = json['original_title'];
     overview = json['overview'];
@@ -92,7 +92,9 @@ class MovieDetailModel {
         productionCountries!.add(ProductionCountries.fromJson(v));
       });
     }
-    releaseDate = json['release_date'];
+    releaseDate = json['release_date'] != null
+        ? DateTime.tryParse(json['release_date'])?.toIso8601String()
+        : null;
     revenue = json['revenue'];
     runtime = json['runtime'];
     if (json['spoken_languages'] != null) {
@@ -160,8 +162,9 @@ class MovieDetailModel {
           productionCompanies?.map((p) => p.logoPath ?? '').toList() ?? [],
       overview: overview ?? '',
       popularity: popularity ?? 0,
-      releaseDate:
-          releaseDate == null ? DateTime.now() : DateTime.parse(releaseDate!),
+      releaseDate: releaseDate == null
+          ? DateTime.tryParse(releaseDate!) ?? DateTime.now()
+          : DateTime.now(),
       revenue: revenue ?? 0,
       runtime: runtime ?? 0,
       tagline: tagline ?? '',
