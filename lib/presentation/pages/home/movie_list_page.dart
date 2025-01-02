@@ -162,9 +162,12 @@ class Carousel extends StatelessWidget {
                 aspectRatio: 2 / 3,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                      '${ApiConstants.baseImageUrl}${movie.posterPath}',
-                      fit: BoxFit.cover),
+                  child: Hero(
+                    tag: '${movie.id}',
+                    child: Image.network(
+                        '${ApiConstants.baseImageUrl}${movie.posterPath}',
+                        fit: BoxFit.cover),
+                  ),
                 ),
               ),
             ),

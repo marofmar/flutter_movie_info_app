@@ -42,9 +42,12 @@ class MovieDetailPage extends ConsumerWidget {
                 children: [
                   Container(
                       width: double.infinity,
-                      child: Image.network(
-                        '${ApiConstants.baseImageUrl}${movie.posterPath}',
-                        fit: BoxFit.cover,
+                      child: Hero(
+                        tag: "${movie.id}",
+                        child: Image.network(
+                          '${ApiConstants.baseImageUrl}${movie.posterPath}',
+                          fit: BoxFit.cover,
+                        ),
                       )),
                   Text(movie.title),
                   Text(movie.tagline),
