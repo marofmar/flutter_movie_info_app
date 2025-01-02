@@ -236,7 +236,7 @@ class CarouselRank extends StatelessWidget {
                           '${index + 1}',
                           style: TextStyle(
                               color: Theme.of(context).brightness ==
-                                      Brightness.light
+                                      Brightness.dark
                                   ? Colors.white
                                   : Colors.pinkAccent,
                               fontSize: 68,
