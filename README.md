@@ -8,7 +8,7 @@ Movie Info App은 Flutter와 Riverpod 상태 관리 라이브러리를 사용하
 
 📸 앱 시연
 
-![2025-01-02](assets/record.gif)
+![2025-01-02](assets/record2.gif)
 
 🐣 주요 기능
 
