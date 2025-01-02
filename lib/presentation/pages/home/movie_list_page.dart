@@ -5,6 +5,7 @@ import 'package:movie_info_app/data/core/api_constants.dart';
 import 'package:movie_info_app/domain/entity/movie_entity.dart';
 import 'package:movie_info_app/presentation/pages/detail/movie_detail_page.dart';
 import 'package:movie_info_app/presentation/pages/home/movie_list_view_model.dart';
+import 'package:movie_info_app/presentation/widgets/common_app_bar.dart';
 import 'package:movie_info_app/presentation/widgets/theme_notifier.dart';
 
 class HomePage extends ConsumerWidget {
@@ -43,24 +44,7 @@ class HomePage extends ConsumerWidget {
         final mostPopular = state.popularMovies.first;
 
         return Scaffold(
-          appBar: AppBar(
-              toolbarHeight: 46,
-              title: Text(
-                "Movie Info App",
-                style: GoogleFonts.kodeMono(textStyle: TextStyle(fontSize: 16)),
-              ),
-              actions: [
-                IconButton(
-                  icon: Icon(
-                    themeMode == ThemeMode.dark
-                        ? Icons.light_mode
-                        : Icons.dark_mode,
-                  ),
-                  onPressed: () {
-                    return themeNotifier.toggleTheme();
-                  },
-                )
-              ]),
+          appBar: const CommonAppBar(title: "Movie Info App"),
           body: SingleChildScrollView(
             child: Column(
               children: [
