@@ -49,7 +49,10 @@ class HomePage extends ConsumerWidget {
             child: Column(
               children: [
                 const SectionTitle(title: 'Most Popular'),
-                TopMoviePoster(movie: mostPopular, sectionName: "mostPopular"),
+                TopMoviePoster(
+                  movie: mostPopular,
+                  sectionName: "mostPopular",
+                ),
                 // 현재 상영 중
                 const SectionTitle(title: 'Now Playing'),
                 Carousel(
@@ -59,7 +62,9 @@ class HomePage extends ConsumerWidget {
                 // 인기 순
                 const SectionTitle(title: 'Popular'),
                 CarouselRank(
-                    movies: state.popularMovies, sectionName: "popular"),
+                  movies: state.popularMovies,
+                  sectionName: "popular",
+                ),
                 // 평점 높은 순
                 const SectionTitle(title: 'Top Rated'),
                 Carousel(
