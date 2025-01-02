@@ -84,9 +84,18 @@ class TopMoviePoster extends StatelessWidget {
         aspectRatio: 2 / 3, // 가로 세로 비율 설정
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10), // 모서리 둥글게 처리
-          child: Image.network(
-            '${ApiConstants.baseImageUrl}${movie.posterPath}',
-            fit: BoxFit.cover,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => MovieDetailPage(movieId: movie.id)),
+              );
+            },
+            child: Image.network(
+              '${ApiConstants.baseImageUrl}${movie.posterPath}',
+              fit: BoxFit.cover,
+            ),
           ),
         ),
       ),
