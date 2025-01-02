@@ -4,7 +4,7 @@ import 'package:movie_info_app/domain/entity/movie_detail_entity.dart';
 class MovieDetailModel {
   bool? adult;
   String? backdropPath;
-  Null belongsToCollection;
+  Map<String, dynamic>? belongsToCollection;
   int? budget;
   List<Genres>? genres;
   String? homepage;
@@ -29,33 +29,34 @@ class MovieDetailModel {
   double? voteAverage;
   int? voteCount;
 
-  MovieDetailModel(
-      {this.adult,
-      this.backdropPath,
-      this.belongsToCollection,
-      this.budget,
-      this.genres,
-      this.homepage,
-      this.id,
-      this.imdbId,
-      this.originCountry,
-      this.originalLanguage,
-      this.originalTitle,
-      this.overview,
-      this.popularity,
-      this.posterPath,
-      this.productionCompanies,
-      this.productionCountries,
-      this.releaseDate,
-      this.revenue,
-      this.runtime,
-      this.spokenLanguages,
-      this.status,
-      this.tagline,
-      this.title,
-      this.video,
-      this.voteAverage,
-      this.voteCount});
+  MovieDetailModel({
+    this.adult,
+    this.backdropPath,
+    this.belongsToCollection,
+    this.budget,
+    this.genres,
+    this.homepage,
+    this.id,
+    this.imdbId,
+    this.originCountry,
+    this.originalLanguage,
+    this.originalTitle,
+    this.overview,
+    this.popularity,
+    this.posterPath,
+    this.productionCompanies,
+    this.productionCountries,
+    this.releaseDate,
+    this.revenue,
+    this.runtime,
+    this.spokenLanguages,
+    this.status,
+    this.tagline,
+    this.title,
+    this.video,
+    this.voteAverage,
+    this.voteCount,
+  });
 
   MovieDetailModel.fromJson(Map<String, dynamic> json) {
     adult = json['adult'];
@@ -71,7 +72,10 @@ class MovieDetailModel {
     homepage = json['homepage'];
     id = json['id'];
     imdbId = json['imdb_id'];
-    originCountry = json['origin_country'].cast<String>();
+    originCountry = (json['origin_country'] as List<dynamic>?)
+            ?.map((e) => e.toString())
+            .toList() ??
+        [];
     originalLanguage = json['original_language'];
     originalTitle = json['original_title'];
     overview = json['overview'];
@@ -89,7 +93,9 @@ class MovieDetailModel {
         productionCountries!.add(ProductionCountries.fromJson(v));
       });
     }
-    releaseDate = json['release_date'];
+    releaseDate = json['release_date'] != null
+        ? DateTime.tryParse(json['release_date'])?.toIso8601String()
+        : null;
     revenue = json['revenue'];
     runtime = json['runtime'];
     if (json['spoken_languages'] != null) {
@@ -157,14 +163,16 @@ class MovieDetailModel {
           productionCompanies?.map((p) => p.logoPath ?? '').toList() ?? [],
       overview: overview ?? '',
       popularity: popularity ?? 0,
-      releaseDate:
-          releaseDate == null ? DateTime.now() : DateTime.parse(releaseDate!),
+      releaseDate: releaseDate == null
+          ? DateTime.tryParse(releaseDate!) ?? DateTime.now()
+          : DateTime.now(),
       revenue: revenue ?? 0,
       runtime: runtime ?? 0,
       tagline: tagline ?? '',
       title: title ?? '',
       voteAverage: voteAverage ?? 0,
       voteCount: voteCount ?? 0,
+      posterPath: posterPath ?? '',
     );
   }
 }

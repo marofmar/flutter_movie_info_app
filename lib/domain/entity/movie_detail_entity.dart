@@ -12,6 +12,7 @@ class MovieDetailEntity {
   final String title;
   final double voteAverage;
   final int voteCount;
+  final String posterPath;
 
   MovieDetailEntity({
     required this.budget,
@@ -27,5 +28,6 @@ class MovieDetailEntity {
     required this.title,
     required this.voteAverage,
     required this.voteCount,
+    required this.posterPath,
   });
 }

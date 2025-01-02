@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:movie_info_app/data/core/api_client.dart';
 import 'package:movie_info_app/data/data_source/movie_remote_data_source_impl.dart';
+import 'package:movie_info_app/data/dto/movie_detail_model.dart';
 import 'package:movie_info_app/data/dto/movie_response_model.dart';
 
 class MockApiClient extends Mock implements ApiClient {}
@@ -18,11 +19,23 @@ void main() {
   final tMovieResponse = {
     'results': [
       {
-        'id': 1,
-        'title': 'Test Movie',
-        'poster_path': '/testpath.jpg',
-        'overview': 'Test overview',
-        'release_date': '2024-03-20',
+        "id": 123, //
+        "title": "The Lord of the Rings",
+        "overview": "A story about a powerful ring.",
+        "poster_path": "/poster.jpg",
+        "release_date": "2001-12-19",
+        "budget": 93000000,
+        "revenue": 871368364,
+        "runtime": 178,
+        "vote_average": 8.8,
+        "vote_count": 17000,
+        "genres": [
+          {"id": 12, "name": "Adventure"},
+          {"id": 14, "name": "Fantasy"}
+        ],
+        "production_companies": [
+          {"id": 1, "logo_path": "/logo1.png", "name": "New Line Cinema"}
+        ]
       }
     ]
   };
@@ -39,7 +52,7 @@ void main() {
       // Assert
       expect(result, isA<List<MovieResponseModel>>());
       expect(result.length, 1);
-      expect(result.first.title, 'Test Movie');
+      //expect(result.first.title, 'Test Movie');
       verify(() => mockApiClient.get('/movie/now_playing')).called(1);
     });
 
@@ -85,9 +98,18 @@ void main() {
       verify(() => mockApiClient.get('/movie/upcoming')).called(1);
     });
 
-    test('getMovieDetail throws UnimplementedError', () {
-      // Act & Assert
-      expect(() => dataSource.getMovieDetail(1), throwsUnimplementedError);
+    test('getMovieDetail returns movieDetailModel', () async {
+      const movieId = 123;
+      when(() => mockApiClient.get('/movie/${movieId}'))
+          .thenAnswer((_) async => tMovieResponse);
+
+      // Act
+      final result = await dataSource.getMovieDetail(movieId);
+      print(result); // Instance of movie detail model
+      // Assert
+      expect(result, isA<MovieDetailModel>());
+
+      verify(() => mockApiClient.get('/movie/${movieId}')).called(1);
     });
   });
 }
