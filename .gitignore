@@ -59,6 +59,3 @@ ios/Flutter/App.framework
 ios/Flutter/Flutter.framework
 ios/Flutter/Generated.xcconfig
 DerivedData/
-
-
-lib/data/core/api_constants.dart
